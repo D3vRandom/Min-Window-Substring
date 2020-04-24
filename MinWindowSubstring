@@ -1,0 +1,45 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+import copy
+
+'''
+Author: ジョシュアモル
+Date: April, 23, 2020
+Contact: devr4ndom@gmail.com
+Version: 1.0
+'''
+
+def minWindow(arr):
+    N = arr[0]
+    K = arr[1]
+    workingList = []
+    pointer1 = 0
+    pointer2 = len(K)
+    minArr = arr[0]
+    for i in range(0, len(N)):
+        pointer2 = len(K)
+        for k in range(0, (len(N) - (len(K) - 1))):
+            workingList = []
+            count = 0
+            for j in range(pointer1, pointer2):
+                if j < len(N):
+                    workingList.append(N[j])
+                else:
+                    break
+            copyArr = copy.deepcopy(workingList)
+            for x in K:
+                if x in workingList:
+                    workingList.remove(x)
+                    count += 1
+            if (count == len(K)):
+                if (len(minArr) > len(copyArr)):
+                    minArr = []
+                    minArr = copy.deepcopy(copyArr)
+            pointer2 += 1
+        pointer1 += 1
+    return minArr
+
+
+arr = [['a', 'd', 'o', 'b', 'e', 'c', 'o', 'd', 'e', 'b', 'a', 'n', 'c'], ['a', 'b', 'c']]
+print(minWindow(arr))
